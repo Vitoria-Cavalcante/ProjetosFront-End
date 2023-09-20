@@ -1,2 +1,2 @@
 # ProjetosFront-End
-Projetos e testes de front-end
+Projetos e testes da matéria de front-end/programação web
