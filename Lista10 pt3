@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificar Palíndromo</title>
+</head>
+<body>
+    <form action="VerificarPalindromoServlet" method="post">
+        Insira uma palavra ou frase: <input type="text" name="palavra"><br>
+        <input type="submit" value="Verificar Palíndromo">
+    </form>
+</body>
+</html>
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/VerificarPalindromoServlet")
+public class VerificarPalindromoServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String palavra = request.getParameter("palavra");
+
+        String palavraInvertida = inverterPalavra(palavra);
+
+        boolean ehPalindromo = palavraInvertida.equalsIgnoreCase(palavra);
+
+        PrintWriter out = response.getWriter();
+        out.println("Palavra original: " + palavra);
+        out.println("Palavra invertida: " + palavraInvertida);
+        if (ehPalindromo) {
+            out.println("É um palíndromo!");
+        } else {
+            out.println("Não é um palíndromo.");
+        }
+    }
+
+    private String inverterPalavra(String palavra) {
+        StringBuilder palavraInvertida = new StringBuilder();
+        for (int i = palavra.length() - 1; i >= 0; i--) {
+            palavraInvertida.append(palavra.charAt(i));
+        }
+        return palavraInvertida.toString();
+    }
+}
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <servlet>
+        <servlet-name>VerificarPalindromoServlet</servlet-name>
+        <servlet-class>seu.pacote.VerificarPalindromoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VerificarPalindromoServlet</servlet-name>
+        <url-pattern>/VerificarPalindromoServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>
