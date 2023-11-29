@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+</head>
+<body>
+    <form action="CalculadoraServlet" method="post">
+        Digite o primeiro número: <input type="number" name="num1"><br>
+        Digite o segundo número: <input type="number" name="num2"><br>
+        Digite o terceiro número: <input type="number" name="num3"><br>
+        <input type="submit" value="Calcular">
+    </form>
+</body>
+</html>
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/CalculadoraServlet")
+public class CalculadoraServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int num1 = Integer.parseInt(request.getParameter("num1"));
+        int num2 = Integer.parseInt(request.getParameter("num2"));
+        int num3 = Integer.parseInt(request.getParameter("num3"));
+
+        int soma = num1 + num2 + num3;
+        int subtracao = num1 - num2 - num3;
+        int multiplicacao = num1 * num2 * num3;
+        double divisao = (double) num1 / num2 / num3;
+        int resto = num1 % num2 % num3;
+
+        PrintWriter out = response.getWriter();
+        out.println("Números recebidos: " + num1 + ", " + num2 + ", " + num3);
+        out.println("Soma: " + soma);
+        out.println("Subtração: " + subtracao);
+        out.println("Multiplicação: " + multiplicacao);
+        out.println("Divisão: " + divisao);
+        out.println("Resto da Divisão: " + resto);
+    }
+}
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <servlet>
+        <servlet-name>CalculadoraServlet</servlet-name>
+        <servlet-class>seu.pacote.CalculadoraServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CalculadoraServlet</servlet-name>
+        <url-pattern>/CalculadoraServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>
