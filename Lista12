@@ -1,0 +1,76 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Atualizar Senha</title>
+</head>
+<body>
+    <form action="UpdatePasswordServlet" method="post">
+        Nova Senha: <input type="password" name="novaSenha">
+        <input type="submit" value="Atualizar Senha">
+    </form>
+</body>
+</html>
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+
+public class UpdatePasswordServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String novaSenha = request.getParameter("novaSenha");
+    }
+}
+
+CREATE TABLE prato (
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR(255),
+    tipo VARCHAR(255),
+    ingredientes VARCHAR(1000)
+);
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Inserir Prato</title>
+</head>
+<body>
+    <form action="InserirPratoServlet" method="post">
+        Nome: <input type="text" name="nome"><br>
+        Tipo: <input type="text" name="tipo"><br>
+        Ingredientes: <textarea name="ingredientes"></textarea><br>
+        <input type="submit" value="Inserir Prato">
+    </form>
+</body>
+</html>
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+
+public class InserirPratoServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nome = request.getParameter("nome");
+        String tipo = request.getParameter("tipo");
+        String ingredientes = request.getParameter("ingredientes");
+    }
+}
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Lista de Pratos</title>
+</head>
+<body>
+    <!-- Lógica para recuperar e exibir todos os pratos da tabela 'prato' -->
+</body>
+</html>
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.List;
+
+public class ListarPratosServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
+}
