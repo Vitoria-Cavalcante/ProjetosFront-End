@@ -1,0 +1,35 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/SessaoServlet")
+public class SessaoServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            
+        HttpSession session = request.getSession(true);
+
+        String sessionId = session.getId();
+
+        Date creationTime = new Date(session.getCreationTime());
+        String creationTimeFormatted = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(creationTime);
+
+        Date lastAccessTime = new Date(session.getLastAccessedTime());
+        String lastAccessTimeFormatted = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(lastAccessTime);
+
+        int sessionAccessCount = 1;
+        if (session.getAttribute("accessCount") != null) {
+            sessionAccessCount = (int) session.getAttribute("accessCount") + 1;
+        }
+        session.setAttribute("accessCount", sessionAccessCount);
+
+        response.setContentType("
